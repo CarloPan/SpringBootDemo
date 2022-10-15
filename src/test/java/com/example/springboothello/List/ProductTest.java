@@ -1,0 +1,29 @@
+package com.example.springboothello.List;
+
+import com.alibaba.fastjson.JSON;
+import org.assertj.core.util.Lists;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public class ProductTest {
+    public static void main(String[] args) {
+
+        Product prod1 = new Product(1L, 1, new BigDecimal("15.5"), "面包", "零食");
+        Product prod2 = new Product(2L, 2, new BigDecimal("20"), "饼干", "零食");
+        Product prod3 = new Product(3L, 3, new BigDecimal("30"), "月饼", "零食");
+        Product prod4 = new Product(4L, 3, new BigDecimal("10"), "青岛啤酒", "啤酒");
+        Product prod5 = new Product(5L, 10, new BigDecimal("15"), "百威啤酒", "啤酒");
+        Product prod6 = new Product(6L, 11, new BigDecimal("16"), "百威啤酒", "啤酒");
+
+        List<Product> prodList = Lists.newArrayList(prod1, prod2, prod3, prod4, prod5,prod6);
+
+        Map<String, List<Product>> prodMap = prodList.stream()
+                .collect(Collectors.groupingBy(item -> item.getCategory() + "_" + item.getName()));
+
+        System.out.println(prodMap);
+        System.out.println(JSON.toJSONString(prodMap));
+    }
+}
